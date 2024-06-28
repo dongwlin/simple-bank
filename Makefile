@@ -1,4 +1,4 @@
-.PHONY: postgres createdb dropdb migrateup migratedown generate test server
+.PHONY: postgres createdb dropdb migrateup migratedown generate test server mock
 
 postgres:
 	docker run --name postgres -p 5432:5432 -e POSTGRES_USER=postgres POSTGRES_PASSWORD=postgres -d postgres:16-alpine
@@ -23,3 +23,6 @@ test:
 
 server:
 	go run main.go
+
+mock:
+	mockgen -package mockdb -destination internal/mockdb/store.go  github.com/dongwlin/simple-bank/internal/db Store

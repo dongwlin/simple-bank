@@ -38,6 +38,7 @@ func TestServer_getAccount(t *testing.T) {
 
 	server.router.ServeHTTP(recorder, request)
 	// check response
+	t.Logf("%v", recorder.Body)
 	require.Equal(t, http.StatusOK, recorder.Code)
 	requireBodyMatchAccount(t, recorder.Body, account)
 }

@@ -1,4 +1,4 @@
-.PHONY: postgres createdb dropdb migrateup migratedown generate test server mock
+.PHONY: postgres createdb dropdb migrateup migrateup1 migratedown migratedown2 generate test server mock
 
 postgres:
 	docker run --name postgres -p 5432:5432 -e POSTGRES_USER=postgres POSTGRES_PASSWORD=postgres -d postgres:16-alpine
@@ -12,8 +12,14 @@ dropdb:
 migrateup:
 	migrate -path db/migration -database "postgres://postgres:postgres@localhost:5432/simple_bank?sslmode=disable" -verbose up
 
+migrateup1:
+	migrate -path db/migration -database "postgres://postgres:postgres@localhost:5432/simple_bank?sslmode=disable" -verbose up 1
+
 migratedown:
 	migrate -path db/migration -database "postgres://postgres:postgres@localhost:5432/simple_bank?sslmode=disable" -verbose down
+
+migratedown1:
+	migrate -path db/migration -database "postgres://postgres:postgres@localhost:5432/simple_bank?sslmode=disable" -verbose down 1
 
 sqlc:
 	sqlc generate

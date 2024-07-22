@@ -1,3 +1,5 @@
 dbDriver: "postgres"
 dbSource: "postgres://postgres:postgres@localhost:5432/simple_bank?sslmode=disable"
 serverAddress: "0.0.0.0:8000"
+tokenSymmetricKey: "n6385cdpbPR3HfphuM172SKsUTZzHExO"
+accessTokenDuration: 15m

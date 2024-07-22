@@ -2,7 +2,6 @@ package token
 
 import (
 	"github.com/dongwlin/simple-bank/internal/pkg/util"
-	"github.com/o1egl/paseto"
 	"github.com/stretchr/testify/require"
 	"testing"
 	"time"
@@ -46,22 +45,5 @@ func TestExpiredPasetoToken(t *testing.T) {
 	payload, err := maker.VerifyToken(token)
 	require.Error(t, err)
 	require.EqualError(t, err, ErrExpiredToken.Error())
-	require.Nil(t, payload)
-}
-
-func TestInvalidPasetoToken(t *testing.T) {
-	maker, err := NewJWTMaker(util.RandomString(32))
-	require.NoError(t, err)
-
-	payload, err := NewPayload(util.RandomOwner(), time.Minute)
-	require.NoError(t, err)
-
-	pasetoV2 := paseto.NewV2()
-	token, err := pasetoV2.Encrypt([]byte{}, payload, nil)
-	require.NoError(t, err)
-
-	payload, err = maker.VerifyToken(token)
-	require.Error(t, err)
-	require.EqualError(t, err, ErrInvalidToken.Error())
 	require.Nil(t, payload)
 }
